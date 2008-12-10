@@ -1,0 +1,27 @@
+KillBill
+========
+
+Cria boleto com código de barras, usando o prawn (https://github.com/sandal/prawn/tree)
+e o barby (https://github.com/toretore/barby/tree).
+
+Baseado e inclusive muitos métodos copiados por inteiro do
+acts_as_payment (http://github.com/kivanio/acts_as_payment/tree). O
+autor original é Kivanio
+(http://www.kivanio.com.br/home/post/58-plugin-para-pagamentos-actsaspayment.html)
+
+Para execução, necessita das Gems instaladas:
+
+prawn >= (0.2.99)
+barby >= (0.2.1)
+
+Para testes necessita das Gems instaladas:
+
+rspec >= (1.1.11)
+
+Example
+=======
+
+Example goes here.
+
+
+Copyright (c) 2008 Riopro Informática Ltda, released under the MIT license
