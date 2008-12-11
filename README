@@ -22,11 +22,74 @@ Example
 =======
 
 Os exemplos estão na pasta examples. Para usá-los, você precisa estar com as
-gems instaladas e executar o exemplo desejado. Por exemplo:
+gems instaladas e executar o exemplo desejado. O exemplo:
 
 $ ruby examples/boleto_itau_examples.rb
 
 Vai criar no diretório raiz um arquivo boleto_itau.pdf
+
+
+Incorporando o seu banco ao KillBill
+=================================================
+
+Para entender melhor como incorporar o seu banco ao KillBill, comece olhando o 
+arquivo lib/bank/itau.rb.
+
+De cara você verá que o mesmo herda de Riopro::KillBill::Bank::Base. A classe 
+base faz todas as instanciações padrão e contém os métodos mais comuns a todos
+os bancos (como cálculo dos digitos verificadores do tipo 10 e 11).
+
+Em seguida colocamos attr_accessor para cada campo que for específico do nosso
+banco. No caso do itaú, são os campos :cpf_or_cnpj e :descriptions.
+
+Em seguida temos o método initialize, onde instanciamos atributos para esse banco
+(como o número e o nome do banco). É importante chamar self.process_options(options)
+ao final do initialize para que o banco possa receber opções de inicialização através
+de um hash.
+
+O próximo método importante que varia de banco para banco é build_barcode. Cada 
+banco determina como será a ordem de campos (e até mesmo quais são eles) para
+o código de barras. Os 3 primeiros campos são fixos porém: 
+
+#{self.bank_number}#{self.currency}#{verifyer_cd}
+
+O primeiro é o número do banco 001 (banco do brasil), 341 (itaú),... O segundo é
+a moeda de pagamento do boleto. Normalmente a forma de pagamento é em Reais, que
+possui um id fixo entre os bancos = 9. Mas poderia ser dólar ou euro, ou se o país mudasse
+de moeda para Reais Novos por exemplo, esse número mudaria.
+
+O terceiro campo onipresente é o que calcula o dígito verificador para esse código
+de barras. Mas essa forma de calcular vária de banco para banco. O que é fixo é
+a posição.
+
+Sem entrar muito em detalhes, o próximo passo é criar a imagem de fundo para o
+seu boleto (com o logo do banco e todos os campos no alinhamento correto). Você pode
+tomar como base o nosso arquivo do Gimp lib/images/bank_source.xcf e usá-lo
+para gerar a sua imagem de background do boleto do seu banco. O importante é que
+convencionamos que a imagem de fundo do boleto será chamada lib/images/nome_do_banco.jpg
+Importante que nome_do_banco deve estar em minúsculo. Isso ajudará na padronização.
+
+Em seguida, faça seus métodos pdf_parameters, to_pdf e to_pdf_file que fazem a 
+renderização do boleto propriamente dita.
+
+
+Melhorias desejadas e Roadmap
+=============================
+
+Por hora o KillBill usa os templates de imagem em jpg, porque o prawn só suporta
+jpg e png, mas a renderização de png ainda está muito lenta.
+
+Seria importante que os métodos to_pdf e to_pdf_file chamassem um método
+valid! que validaria se os campos estão corretos antes de tentar criar o pdf.
+Isso porque acreditamos que um boleto só deve ser gerado se ele puder ser gerado.
+Ou seja, se um campo obrigatório não foi preenchido (como o sacado por exemplo),
+deve ser obrigatorio que a biblioteca levante um erro informando que atributo 
+exatamente não foi preenchido ou foi preenchido incorretamente.
+
+O objetivo agora é acrescentar o maior número possível de bancos, sem desvirtuar
+o conceito de simplicidade do KillBill.
+
+
 
 
 Copyright (c) 2008 Riopro Informática Ltda, released under the MIT license
