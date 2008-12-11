@@ -21,7 +21,12 @@ rspec >= (1.1.11)
 Example
 =======
 
-Example goes here.
+Os exemplos estão na pasta examples. Para usá-los, você precisa estar com as
+gems instaladas e executar o exemplo desejado. Por exemplo:
+
+$ ruby examples/boleto_itau_examples.rb
+
+Vai criar no diretório raiz um arquivo boleto_itau.pdf
 
 
 Copyright (c) 2008 Riopro Informática Ltda, released under the MIT license
