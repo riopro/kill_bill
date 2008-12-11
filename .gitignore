@@ -2,3 +2,4 @@ rdoc
 spec/*.log
 spec/db/*.db
 boleto_itau.pdf
+nbproject
