@@ -27,16 +27,28 @@ describe Riopro::KillBill::Bank::Itau do
         @bank_itau.drawee = { :name => 'otavio', :address1 => "minha rua", :address2 => "rio de janeiro" }
         @font = mock(Prawn::Document, { :size= => "10", :height => 10 })
         @pdf = mock(Prawn::Document, { :table => "table", :font =>  @font, :move_down => "10", :y= => "", :text => "" })
-        @barcode = mock(Barby::Code25Interleaved, { :annotate_pdf => "" })
-        Barby::Code25Interleaved.stub!(:new).and_return(@barcode)
+        @barby_barcode = mock(Barby::Code25Interleaved, { :annotate_pdf => "" })
+        Barby::Code25Interleaved.stub!(:new).and_return(@barby_barcode)
       end
       it "should call barcode method" do
         @bank_itau.should_receive(:barcode).and_return("01234567890123456789012345678901234567891234")
         @bank_itau.pdf_parameters(@pdf)
       end
       it "should call Barby barcode method" do
-        @barcode.should_receive(:annotate_pdf).and_return("bar code")
-        Barby::Code25Interleaved.should_receive(:new).and_return(@barcode)
+        @barby_barcode.should_receive(:annotate_pdf).and_return("bar code")
+        Barby::Code25Interleaved.should_receive(:new).and_return(@barby_barcode)
+        @bank_itau.pdf_parameters(@pdf)
+      end
+      it "should place drawee name and address" do
+        @bank_itau.should_receive(:drawee).exactly(4).and_return("otavio")
+        @bank_itau.pdf_parameters(@pdf)
+      end
+      it "should place value" do
+        @bank_itau.should_receive(:value).exactly(4).and_return(100.0)
+        @bank_itau.pdf_parameters(@pdf)
+      end
+      it "should place instructions" do
+        @bank_itau.should_receive(:instructions).exactly(2).and_return([""])
         @bank_itau.pdf_parameters(@pdf)
       end
     end
