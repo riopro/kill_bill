@@ -51,6 +51,12 @@ describe Riopro::KillBill::Bank::Itau do
         @bank_itau.should_receive(:instructions).exactly(2).and_return([""])
         @bank_itau.pdf_parameters(@pdf)
       end
+      it 'should receive billing typeable line' do
+        bill_bar_code_data = "01234567890123456789012345678901234567891234"
+        @bank_itau.stub!(:barcode).and_return(bill_bar_code_data)
+        @bank_itau.should_receive(:typeable_line).with(bill_bar_code_data).and_return("000")
+        @bank_itau.pdf_parameters(@pdf)
+      end
     end
     describe "Validations" do
       describe "for descriptions attribute" do
