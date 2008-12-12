@@ -118,9 +118,8 @@ module Riopro
 
         # Render class attributes to pdf file. Returns a pdf stream
         def to_pdf
-          @pdf = Prawn::Document.new(:background => File.dirname(__FILE__) + "/../images/#{self.bank.downcase}.jpg") do |pdf|
-            self.pdf_parameters(pdf)
-          end
+          @pdf = Prawn::Document.new(:background => File.dirname(__FILE__) + "/../images/#{self.bank.downcase}.jpg")
+          self.pdf_parameters(@pdf)
           @pdf.render
         end
 

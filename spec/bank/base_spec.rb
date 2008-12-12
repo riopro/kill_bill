@@ -232,8 +232,8 @@ describe Riopro::KillBill::Bank::Base do
         @pdf.stub!(:render)
         @base.bank = "bank_name"
       end
-      it "should try to render the pdf file" do
-        Prawn::Document.should_receive(:new).with(:background => "./spec/bank/../../lib/bank/../images/bank_name.jpg").and_return(@pdf)
+      it "should try to create the pdf object with background" do
+        Prawn::Document.should_receive(:new).with(:background => "./spec/bank/../../lib/bank/../images/#{@base.bank}.jpg").and_return(@pdf)
         @base.to_pdf
       end
       it "should try to render the pdf file" do
@@ -243,6 +243,32 @@ describe Riopro::KillBill::Bank::Base do
       it "should try to place the bank image as background" do
         @base.should_receive(:bank).and_return("bank_name")
         @base.to_pdf
+      end
+      it "should call pdf_parameters method" do
+        @base.should_receive(:pdf_parameters).with(@pdf)
+        @base.to_pdf
+      end
+    end
+
+    describe "to_pdf_file" do
+      before(:each) do
+        @pdf = mock(Prawn::Document)
+        Prawn::Document.stub!(:generate).and_yield(@pdf)
+        @pdf.stub!(:render)
+        @base.bank = "bank_name"
+        @file_name = "name_of_the_file"
+      end
+      it "should try to generate the pdf file with background" do
+        Prawn::Document.should_receive(:generate).with(@file_name, :background => "./spec/bank/../../lib/bank/../images/#{@base.bank}.jpg").and_return(@pdf)
+        @base.to_pdf_file(@file_name)
+      end
+      it "should try to place the bank image as background" do
+        @base.should_receive(:bank).and_return("bank_name")
+        @base.to_pdf_file(@file_name)
+      end
+      it "should call pdf_parameters method" do
+        @base.should_receive(:pdf_parameters).with(@pdf)
+        @base.to_pdf_file @file_name
       end
     end
   end
