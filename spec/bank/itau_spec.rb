@@ -4,6 +4,25 @@ describe Riopro::KillBill::Bank::Itau do
   before(:each) do
     global_stubs
   end
+  describe "Validations" do
+    before(:each) do
+      @bank_itau = Riopro::KillBill::Bank::Itau.new
+    end
+    describe "for descriptions attribute" do
+      it "should fail when is not an Array" do
+        ["a string", nil, 1, 1.0].each do |variable|
+          lambda {
+            @bank_itau.descriptions = variable
+          }.should raise_error(ArgumentError)
+        end
+      end
+      it "should succed if is an Array" do
+        [[""], [], ["teste", "testing"]].each do |variable|
+          @bank_itau.descriptions = variable
+        end
+      end
+    end
+  end
   describe "Instance methods" do
     before(:each) do
       @bank_itau = Riopro::KillBill::Bank::Itau.new
@@ -34,6 +53,12 @@ describe Riopro::KillBill::Bank::Itau do
         @bank_itau.should_receive(:barcode).and_return("01234567890123456789012345678901234567891234")
         @bank_itau.pdf_parameters(@pdf)
       end
+      it 'should receive billing typeable line' do
+        bill_bar_code_data = "01234567890123456789012345678901234567891234"
+        @bank_itau.stub!(:barcode).and_return(bill_bar_code_data)
+        @bank_itau.should_receive(:typeable_line).with(bill_bar_code_data).and_return("000")
+        @bank_itau.pdf_parameters(@pdf)
+      end
       it "should call Barby barcode method" do
         @barby_barcode.should_receive(:annotate_pdf).and_return("bar code")
         Barby::Code25Interleaved.should_receive(:new).and_return(@barby_barcode)
@@ -51,27 +76,10 @@ describe Riopro::KillBill::Bank::Itau do
         @bank_itau.should_receive(:instructions).exactly(2).and_return([""])
         @bank_itau.pdf_parameters(@pdf)
       end
-      it 'should receive billing typeable line' do
-        bill_bar_code_data = "01234567890123456789012345678901234567891234"
-        @bank_itau.stub!(:barcode).and_return(bill_bar_code_data)
-        @bank_itau.should_receive(:typeable_line).with(bill_bar_code_data).and_return("000")
+      it "should place our number" do
+        @bank_itau.stub!(:barcode).and_return("0000")
+        @bank_itau.should_receive(:our_number).exactly(4).and_return("22222")
         @bank_itau.pdf_parameters(@pdf)
-      end
-    end
-    describe "Validations" do
-      describe "for descriptions attribute" do
-        it "should fail when is not an Array" do
-          ["a string", nil, 1, 1.0].each do |variable|
-            lambda {
-              @bank_itau.descriptions = variable
-            }.should raise_error(ArgumentError)
-          end
-        end
-        it "should succed if is an Array" do
-          [[""], [], ["teste", "testing"]].each do |variable|
-            @bank_itau.descriptions = variable
-          end
-        end
       end
     end
 
