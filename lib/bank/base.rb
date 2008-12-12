@@ -108,12 +108,29 @@ module Riopro
 
         end
 
-        # Method that will be called to render billing pdf
-        def to_pdf
+        # parameters that will be used to generate both the pdf file or the pdf stream
+        def pdf_parameters(pdf)
 
         end
 
         # === End Stub methods (replaced for each bank) ===
+
+
+        # Render class attributes to pdf file. Returns a pdf stream
+        def to_pdf
+          @pdf = Prawn::Document.new(:background => File.dirname(__FILE__) + "/../images/#{self.bank.downcase}.jpg") do |pdf|
+            self.pdf_parameters(pdf)
+          end
+          @pdf.render
+        end
+
+        # Render class attributes to pdf file. Saves pdf to the destination
+        # setted in the filename parameter
+        def to_pdf_file(filename = nil)
+          Prawn::Document.generate(filename, :background => File.dirname(__FILE__) + "/../images/#{self.bank.downcase}.jpg") do |pdf|
+            self.pdf_parameters(pdf)
+          end
+        end
 
 
         # Calculates barcode check digit according to it's

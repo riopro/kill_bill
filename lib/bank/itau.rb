@@ -113,22 +113,6 @@ module Riopro
           my_barcode.annotate_pdf(pdf, { :height => 30, :y => -20, :x => 0, :xdim => 0.8 })
         end
 
-        # Render class attributes to pdf file. Returns a pdf stream
-        def to_pdf
-          @pdf = Prawn::Document.new(:background => File.dirname(__FILE__) + "/../images/#{self.bank.downcase}.jpg") do |pdf|
-            self.pdf_parameters(pdf)
-          end
-          @pdf.render
-        end
-
-        # Render class attributes to pdf file. Saves pdf to the destination
-        # setted in the filename parameter
-        def to_pdf_file(filename = nil)
-          Prawn::Document.generate(filename, :background => File.dirname(__FILE__) + "/../images/#{self.bank.downcase}.jpg") do |pdf|
-            self.pdf_parameters(pdf)
-          end
-        end
-
         private
 
           TABLE_DEFAULTS = {
