@@ -224,6 +224,23 @@ describe Riopro::KillBill::Bank::Base do
         end
       end
     end
+
+    describe "to_pdf" do
+      before(:each) do
+        @pdf = mock(Prawn::Document)
+        Prawn::Document.stub!(:new).and_return(@pdf)
+        @pdf.stub!(:render)
+        @base.bank = "itau"
+      end
+      it "should try to render the pdf file" do
+        @pdf.should_receive(:render).and_return(true)
+        @base.to_pdf
+      end
+      it "should try to place the bank image as background" do
+        @base.should_receive(:bank).and_return("nome_do_banco")
+        @base.to_pdf
+      end
+    end
   end
 
 
