@@ -5,7 +5,18 @@ module Riopro
         
         attr_accessor :return_file_path
         attr_reader :header, :trailer, :transactions
-        
+
+
+        # Choses the correct return bank handler or throws an
+        # error if bank is not supported
+        def self.auto_initialize(return_file_path, auto_parse=true)
+          raise "Return file not found" unless File.exist?(return_file_path)
+          first_line = File.readline(self.return_file_path)
+          if first_line[76..78] == "341"
+            Riopro::KillBill::Return::Itau.new(return_file_path, auto_parse)
+          end
+        end
+
         def initialize(return_file_path, auto_parse=true)
           raise "Return file not found" unless File.exist?(return_file_path)
 
