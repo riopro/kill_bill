@@ -83,7 +83,8 @@ module Riopro
         # 44 chars and it usual to have a check digit in the middle of
         # the barcode.
         def barcode
-  #        self.build_barcode(self.calculate_barcode_cd)
+          raise "Abstract method called - should overwrite this method on a child class"
+          # self.build_barcode(self.calculate_barcode_cd)
         end
 
         # Builds the base string for bar code. If this method receive the
@@ -92,25 +93,26 @@ module Riopro
         # Bellow just a sample on how to build the method for your bank
         # Remember: with _verifyer_cd_ your string should have 44 chars
         def build_barcode(verifyer_cd = "")
-  #        barcode_string =  "#{self.bank_numeber}#{self.currency}#{verifyer_cd}#{self.factor}"
-  #        barcode_string << "#{self.zeros_at_left(self.value, 10)}#{self.our_number}"
-  #        barcode_string << "#{self.agency}#{self.account}#{self.portfolio}"
-  #        barcode_string
+          raise "Abstract method called - should overwrite this method on a child class"
+          # barcode_string =  "#{self.bank_numeber}#{self.currency}#{verifyer_cd}#{self.factor}"
+          # barcode_string << "#{self.zeros_at_left(self.value, 10)}#{self.our_number}"
+          # barcode_string << "#{self.agency}#{self.account}#{self.portfolio}"
+          # barcode_string
         end
 
         # Calculates our number check digit according to bank criteria
         def calculate_our_number_cd
-
+          raise "Abstract method called - should overwrite this method on a child class"
         end
 
         # Calculates account check digit according to bank criteria
         def calculate_account_cd
-
+          raise "Abstract method called - should overwrite this method on a child class"
         end
 
         # parameters that will be used to generate both the pdf file or the pdf stream
         def pdf_parameters(pdf)
-
+          raise "Abstract method called - should overwrite this method on a child class"
         end
 
         # === End Stub methods (replaced for each bank) ===
