@@ -15,7 +15,7 @@ module Riopro
           if first_line[76..78] == "341"
             return Riopro::KillBill::Return::Itau.new(return_file_path, auto_parse)
           end
-          raise "No bank return parser found."
+          raise "Can't found bank return parser for #{return_file_path}."
         end
 
         def initialize(return_file_path, auto_parse=true)
