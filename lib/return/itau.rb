@@ -157,7 +157,7 @@ module Riopro
               # espécie do título
               :especie => string[173..174],
               # valor da despesa de cobrança
-              :tarifa_cobranca => string[175..187],
+              :tarifa_cobranca => string[175..187].to_f / 100,
               # complemento de registro
               #:brancos5 => string[188..213],
               # valor do iof a ser recolhido (notas seguro)

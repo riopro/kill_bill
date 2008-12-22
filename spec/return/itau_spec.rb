@@ -42,6 +42,13 @@ describe Riopro::KillBill::Return::Itau do
           @transaction[:nosso_numero2].should == "00123456"
           @transaction[:dac_nosso_numero].should == "5"
         end
+        it "should parse and retrieve the correct values" do
+          @transaction[:valor_titulo].should == 45.5
+          @transaction[:tarifa_cobranca].should == 1.23
+          @transaction[:valor_abatimento].should == 0.0
+          @transaction[:valor_principal].should == 49.11
+          @transaction[:juros_mora_multa].should == 3.61
+        end
       end
     end
     
