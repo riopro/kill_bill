@@ -230,6 +230,7 @@ describe Riopro::KillBill::Bank::Base do
         @pdf = mock(Prawn::Document)
         Prawn::Document.stub!(:new).and_return(@pdf)
         @pdf.stub!(:render)
+        @base.stub!(:pdf_parameters).and_return(true)
         @base.bank = "bank_name"
       end
       it "should try to create the pdf object with background" do
@@ -255,6 +256,7 @@ describe Riopro::KillBill::Bank::Base do
         @pdf = mock(Prawn::Document)
         Prawn::Document.stub!(:generate).and_yield(@pdf)
         @pdf.stub!(:render)
+        @base.stub!(:pdf_parameters).and_return(true)
         @base.bank = "bank_name"
         @file_name = "name_of_the_file"
       end
