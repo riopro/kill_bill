@@ -20,6 +20,9 @@ describe Riopro::KillBill::Return::Itau do
         it "should be a return type" do
           @return_file.header[:literal_retorno].should == "RETORNO"
         end
+        it "should have register type = 0" do
+          @return_file.header[:tipo_registro].should == "0"
+        end
       end
       describe "transaction" do
         before(:each) do
@@ -27,6 +30,17 @@ describe Riopro::KillBill::Return::Itau do
         end
         it "should be an Itau return type" do
           @transaction[:codigo_banco].should == "341"
+        end
+        it "should have register type = 1" do
+          @transaction[:tipo_registro].should == "1"
+        end
+        it "should have agency, account, our number and portfolio" do
+          @transaction[:carteira1].should == "175"
+          @transaction[:agencia].should == "0567"
+          @transaction[:conta].should == "15346"
+          @transaction[:nosso_numero1].should == "00123456"
+          @transaction[:nosso_numero2].should == "00123456"
+          @transaction[:dac_nosso_numero].should == "5"
         end
       end
     end
