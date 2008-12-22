@@ -17,6 +17,9 @@ describe Riopro::KillBill::Return::Itau do
         it "should contain the account" do
           @return_file.header[:conta].should == "15346"
         end
+        it "should be a return type" do
+          @return_file.header[:literal_retorno].should == "RETORNO"
+        end
       end
       describe "transaction" do
         it "should be an Itau return type" do

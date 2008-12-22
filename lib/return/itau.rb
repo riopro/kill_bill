@@ -33,7 +33,7 @@ module Riopro
               # número do banco na câmara de compensação
               :codigo_banco => string[76..78],
               # nome por extenso do banco cobrador
-              :nome_banco => string[79..93],
+              :nome_banco => string[79..93].strip,
               # data de geração do arquivo
               :data_geracao => string[94..99],
               # unidade de densidade
