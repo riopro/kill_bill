@@ -39,5 +39,18 @@ describe Riopro::KillBill::Return::Base do
       @return_file.transactions.size.should == 2
     end
   end
+
+  describe "Sample file test" do
+    it "should raise an error" do
+      lambda {
+        @return_file = Riopro::KillBill::Return::Base.auto_initialize('NO_RETURN_FILE.RET')
+      }.should raise_error
+    end
+    it "should fail because Unibanco is not supported yet" do
+      lambda {
+        @return_file = Riopro::KillBill::Return::Base.auto_initialize('./spec/return/../../examples/sample_data/retorno_unibanco_teste.ret')
+      }.should raise_error
+    end
+  end
   
 end
