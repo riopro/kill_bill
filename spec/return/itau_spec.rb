@@ -22,8 +22,11 @@ describe Riopro::KillBill::Return::Itau do
         end
       end
       describe "transaction" do
+        before(:each) do
+          @transaction = @return_file.transactions[0]
+        end
         it "should be an Itau return type" do
-          @return_file.header[:codigo_banco].should == "341"
+          @transaction[:codigo_banco].should == "341"
         end
       end
     end
