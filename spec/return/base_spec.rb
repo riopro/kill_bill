@@ -18,5 +18,26 @@ describe Riopro::KillBill::Return::Base do
     end
     
   end
+
+  describe "Sample file test" do
+    before(:each) do
+      @return_file = Riopro::KillBill::Return::Base.auto_initialize('./spec/return/../../examples/sample_data/retorno_itau_teste.ret')
+    end
+    it "should return a Return::Itau class" do
+      @return_file.class.to_s.should == "Riopro::KillBill::Return::Itau"
+    end
+    it "should load a hash with the header" do
+      @return_file.header.is_a?(Hash).should be_true
+    end
+    it "should load a hash with the trailer" do
+      @return_file.trailer.is_a?(Hash).should be_true
+    end
+    it "should load an Array of transactions" do
+      @return_file.transactions.is_a?(Array).should be_true
+    end
+    it "should load 2 transactions" do
+      @return_file.transactions.size.should == 2
+    end
+  end
   
 end
