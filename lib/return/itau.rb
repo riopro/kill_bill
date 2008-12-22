@@ -27,7 +27,7 @@ module Riopro
               # dígito de auto-conferência ag/conta empresa
               :dac => string[37..37],
               # complemento do registro
-              :brancos1 => string[38..45],
+              #:brancos1 => string[38..45],
               # nome por extenso da "empresa mãe"
               :nome_empresa => string[46..75],
               # número do banco na câmara de compensação
@@ -45,7 +45,7 @@ module Riopro
               # data de crédito dos lançamentos
               :data_credito => string[113..118],
               # complemento do registro
-              :brancos2 => string[119..393],
+              #:brancos2 => string[119..393],
               # número sequencial do registro no arquivo
               :numero_sequencial => string[394..399]
             }
@@ -63,7 +63,7 @@ module Riopro
               # identificação do banco na compensação
               :codigo_banco => string[4..6],
               # complemento de registro
-              :brancos1 => string[7..16],
+              #:brancos1 => string[7..16],
               # quantidade de títulos em cobrança simples
               :quantidade_titulos_simples => string[17..24],
               # valor total dos títulos em cobrança simples
@@ -71,7 +71,7 @@ module Riopro
               # referência do aviso bancário
               :aviso_bancario_simples => string[39..46],
               # complemento do registro
-              :brancos2  => string[47..56],
+              #:brancos2  => string[47..56],
               # quantidade de títulos em cobrança/vinculada
               :quantidade_titulos_vinculada => string[57..64],
               # valor total dos títulos em cobrança/vinculada
@@ -79,7 +79,7 @@ module Riopro
               # referência do aviso bancário
               :aviso_bancario_vinculada => string[79..86],
               # complemento do registro
-              :brancos3  => string[87..176],
+              #:brancos3  => string[87..176],
               # quantidade de títulos em cobrança direta/escritural
               :quantidade_titulos_direta => string[177..184],
               # valor total dos títulos em cobrança direta/escritural
@@ -93,7 +93,7 @@ module Riopro
               # valor dos títulos informados no arquivo
               :valor_total_informado => string[220..233],
               # complemento do registro
-              :brancos4 => string[234..393],
+              #:brancos4 => string[234..393],
               # número sequencial do registro no arquivo
               :numero_sequencial => string[394..399]
             }
@@ -117,13 +117,13 @@ module Riopro
               # dígito de auto-conferência ag/conta empresa
               :dac => string[28..28],
               # complemento de registro
-              :brancos1 => string[29..36],
+              #:brancos1 => string[29..36],
               # identificação do título na empresa
               :uso_da_empresa => string[37..61],
               # identificação do título no banco
               :nosso_numero1 => string[62..69],
               # complemento de registro
-              :brancos2 => string[70..81],
+              #:brancos2 => string[70..81],
               # número da carteira
               :carteira1 => string[82..84],
               # identificação do título no banco
@@ -131,7 +131,7 @@ module Riopro
               # dac do nosso número
               :dac_nosso_numero => string[93..93],
               # complemento de registro
-              :brancos3 => string[94..106],
+              #:brancos3 => string[94..106],
               # código da carteira
               :carteira2 => string[107..107],
               # identificação da ocorrência
@@ -143,7 +143,7 @@ module Riopro
               # confirmação do número do título no banco
               :nosso_numero3 => string[126..133],
               # complemento de registro
-              :brancos4 => string[134..145],
+              #:brancos4 => string[134..145],
               # data de vencimento do título
               :vencimento => string[146..151],
               # valor nominal do título
@@ -159,7 +159,7 @@ module Riopro
               # valor da despesa de cobrança
               :tarifa_cobranca => string[175..187],
               # complemento de registro
-              :brancos5 => string[188..213],
+              #:brancos5 => string[188..213],
               # valor do iof a ser recolhido (notas seguro)
               :valor_iof => string[214..226],
               # valor do abatimento concedido
@@ -173,21 +173,21 @@ module Riopro
               # valor de outros créditos
               :outros_creditos => string[279..291],
               # complemento de registro
-              :brancos6 => string[292..294],
+              #:brancos6 => string[292..294],
               # data de crédito desta liquidação
               :data_credito => string[295..300],
               # código da instrução cancelada
               :instrucao_cancelada => string[301..304],
               # complemento de registro
-              :brancos7 => string[305..323],
+              #:brancos7 => string[305..323],
               # nome do sacado
               :nome_sacado => string[324..353],
               # complemento de registro
-              :brancos8 => string[354..376],
+              #:brancos8 => string[354..376],
               # registros rejeitados ou alegação do sacado
               :erros => string[377..384],
               # complemento de registro
-              :brancos9 => string[385..391],
+              #:brancos9 => string[385..391],
               # meio pelo qual o título foi liquidado
               :codigo_liquidacao => string[392..393],
               # número sequencial do registro no arquivo
