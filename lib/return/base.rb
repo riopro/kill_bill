@@ -11,7 +11,7 @@ module Riopro
         # error if bank is not supported
         def self.auto_initialize(return_file_path, auto_parse=true)
           raise "Return file not found" unless File.exist?(return_file_path)
-          first_line = File.readline(return_file_path)
+          first_line = File.readlines(return_file_path)[0]
           if first_line[76..78] == "341"
             return Riopro::KillBill::Return::Itau.new(return_file_path, auto_parse)
           end
