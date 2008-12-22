@@ -147,7 +147,7 @@ module Riopro
               # data de vencimento do título
               :vencimento => string[146..151],
               # valor nominal do título
-              :valor_titulo => string[152..164],
+              :valor_titulo => string[152..164].to_f / 100,
               # número do banco na câmara de compensação
               :codigo_banco => string[165..167],
               # ag. cobradora, ag. de liquidação ou baixa
@@ -161,17 +161,17 @@ module Riopro
               # complemento de registro
               #:brancos5 => string[188..213],
               # valor do iof a ser recolhido (notas seguro)
-              :valor_iof => string[214..226],
+              :valor_iof => string[214..226].to_f / 100,
               # valor do abatimento concedido
-              :valor_abatimento => string[227..239],
+              :valor_abatimento => string[227..239].to_f / 100,
               # valor do desconto concedido
-              :descontos => string[240..252],
+              :descontos => string[240..252].to_f / 100,
               # valor lançado em conta corrente
-              :valor_principal => string[253..265],
+              :valor_principal => string[253..265].to_f / 100,
               # valor de mora e multa pagos pelo sacado
-              :juros_mora_multa => string[266..278],
+              :juros_mora_multa => string[266..278].to_f / 100,
               # valor de outros créditos
-              :outros_creditos => string[279..291],
+              :outros_creditos => string[279..291].to_f / 100,
               # complemento de registro
               #:brancos6 => string[292..294],
               # data de crédito desta liquidação
@@ -191,7 +191,7 @@ module Riopro
               # meio pelo qual o título foi liquidado
               :codigo_liquidacao => string[392..393],
               # número sequencial do registro no arquivo
-              :numero_sequencial => string[394..399]
+              :numero_sequencial => string[394..399].to_i
             }
           end
         
