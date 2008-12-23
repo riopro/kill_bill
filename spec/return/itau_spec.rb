@@ -65,6 +65,9 @@ describe Riopro::KillBill::Return::Itau do
         it "should be an Itau return type" do
           @trailer[:codigo_banco].should == "341"
         end
+        it "should returns the correct quantity of transactions" do
+          @trailer[:quantidade_detalhes].should == 2
+        end
         it "should returns the correct transactions sum" do
           @trailer[:valor_total_informado].should == 97.36
         end
