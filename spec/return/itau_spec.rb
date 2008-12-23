@@ -21,7 +21,7 @@ describe Riopro::KillBill::Return::Itau do
           @return_file.header[:literal_retorno].should == "RETORNO"
         end
         it "should have register type = 0" do
-          @return_file.header[:tipo_registro].should == "0"
+          @return_file.header[:tipo_registro].should == 0
         end
       end
       describe "transaction" do
@@ -32,7 +32,7 @@ describe Riopro::KillBill::Return::Itau do
           @transaction[:codigo_banco].should == "341"
         end
         it "should have register type = 1" do
-          @transaction[:tipo_registro].should == "1"
+          @transaction[:tipo_registro].should == 1
         end
         it "should have agency, account, our number and portfolio" do
           @transaction[:carteira1].should == "175"

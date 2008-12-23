@@ -9,7 +9,7 @@ module Riopro
           def parse_header(string)
             {
               # identificação do registro header
-              :tipo_registro => string[0..0],
+              :tipo_registro => string[0..0].to_i,
               # identificação do arquivo retorno
               :codigo_retorno => string[1..1],
               # identificação por extenso do tipo de movimento
@@ -55,7 +55,7 @@ module Riopro
           def parse_trailer(string)
             {
               # identificação do registro trailer
-              :tipo_registro => string[0..0],
+              :tipo_registro => string[0..0].to_i,
               # identificação de arquivo retorno
               :codigo_retorno => string[1..1],
               # identificação do tipo de serviço
@@ -65,23 +65,23 @@ module Riopro
               # complemento de registro
               #:brancos1 => string[7..16],
               # quantidade de títulos em cobrança simples
-              :quantidade_titulos_simples => string[17..24],
+              :quantidade_titulos_simples => string[17..24].to_i,
               # valor total dos títulos em cobrança simples
-              :valor_total_simples => string[25..38],
+              :valor_total_simples => string[25..38].to_f/100,
               # referência do aviso bancário
               :aviso_bancario_simples => string[39..46],
               # complemento do registro
               #:brancos2  => string[47..56],
               # quantidade de títulos em cobrança/vinculada
-              :quantidade_titulos_vinculada => string[57..64],
+              :quantidade_titulos_vinculada => string[57..64].to_i,
               # valor total dos títulos em cobrança/vinculada
-              :valor_total_vinculada => string[65..78],
+              :valor_total_vinculada => string[65..78].to_f/100,
               # referência do aviso bancário
               :aviso_bancario_vinculada => string[79..86],
               # complemento do registro
               #:brancos3  => string[87..176],
               # quantidade de títulos em cobrança direta/escritural
-              :quantidade_titulos_direta => string[177..184],
+              :quantidade_titulos_direta => string[177..184].to_i,
               # valor total dos títulos em cobrança direta/escritural
               :valor_total_direta => string[185..198],
               # referência do aviso bancário
@@ -89,13 +89,13 @@ module Riopro
               # número sequencial do arquivo retorno
               :controle_arquivo => string[207..211],
               # quantidade de registros de transação
-              :quantidade_detalhes => string[212..219],
+              :quantidade_detalhes => string[212..219].to_i,
               # valor dos títulos informados no arquivo
-              :valor_total_informado => string[220..233],
+              :valor_total_informado => string[220..233].to_f/100,
               # complemento do registro
               #:brancos4 => string[234..393],
               # número sequencial do registro no arquivo
-              :numero_sequencial => string[394..399]
+              :numero_sequencial => string[394..399].to_i
             }
           end
           
@@ -103,7 +103,7 @@ module Riopro
           def parse_transaction(string)
             {
               # identificação do registro transação
-              :tipo_registro => string[0..0],
+              :tipo_registro => string[0..0].to_i,
               # identificação do tipo de inscrição/empresa
               :codigo_inscricao => string[1..2],
               # número de inscrição da empresa (cpf/cnpj)
@@ -137,7 +137,7 @@ module Riopro
               # identificação da ocorrência
               :codigo_ocorrencia => string[108..109],
               # data de de ocorrência no banco
-              :data_ocorrencia => string[110..115],
+              :data_ocorrencia => convert_date(string[110..115]),
               # número do documento de cobrança (dupl, np etc)
               :numero_documento => string[116..125],
               # confirmação do número do título no banco
@@ -145,7 +145,7 @@ module Riopro
               # complemento de registro
               #:brancos4 => string[134..145],
               # data de vencimento do título
-              :vencimento => string[146..151],
+              :vencimento => convert_date(string[146..151]),
               # valor nominal do título
               :valor_titulo => string[152..164].to_f / 100,
               # número do banco na câmara de compensação
