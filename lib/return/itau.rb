@@ -175,7 +175,7 @@ module Riopro
               # complemento de registro
               #:brancos6 => string[292..294],
               # data de crédito desta liquidação
-              :data_credito => string[295..300],
+              :data_credito => convert_date(string[295..300]),
               # código da instrução cancelada
               :instrucao_cancelada => string[301..304],
               # complemento de registro

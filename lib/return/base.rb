@@ -99,6 +99,17 @@ module Riopro
             raise "Abstract method called - should overwrite this method on a child class"
           end
         
+          # Receives a string with ddMMyy format and returns a date
+          def convert_date(value)
+            return nil unless value.length == 6
+            ano = 0
+            if value[4..5].to_i > 80
+              ano = value[4..5].to_i + 1900
+            else
+              ano = value[4..5].to_i + 2000
+            end
+            Date.new(ano, value[2..3].to_i, value[0..1].to_i)
+          end
       end
     end
   end
