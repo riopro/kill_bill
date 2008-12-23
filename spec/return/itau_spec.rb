@@ -49,6 +49,11 @@ describe Riopro::KillBill::Return::Itau do
           @transaction[:valor_principal].should == 49.11
           @transaction[:juros_mora_multa].should == 3.61
         end
+        it "should parse and retrieve the correct dates" do
+          @transaction[:vencimento].to_s.should == '2007-07-10'
+          @transaction[:data_ocorrencia].to_s.should == '2007-10-23'
+          @transaction[:data_credito].to_s.should == '2007-10-22'
+        end
       end
     end
     

@@ -83,7 +83,7 @@ module Riopro
               # quantidade de títulos em cobrança direta/escritural
               :quantidade_titulos_direta => string[177..184].to_i,
               # valor total dos títulos em cobrança direta/escritural
-              :valor_total_direta => string[185..198],
+              :valor_total_direta => string[185..198].to_f / 100,
               # referência do aviso bancário
               :aviso_bancario_direta => string[199..206],
               # número sequencial do arquivo retorno
