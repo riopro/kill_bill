@@ -59,7 +59,7 @@ module Riopro
             return_hash[:header] = parse_header(return_file.first)
             return_file.delete_at(0)
             
-            return_hash[:trailer] = parse_header(return_file.last)
+            return_hash[:trailer] = parse_trailer(return_file.last)
             return_file.delete_at(return_file.size - 1)
             
             return_hash[:transactions] = []

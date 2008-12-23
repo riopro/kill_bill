@@ -55,6 +55,20 @@ describe Riopro::KillBill::Return::Itau do
           @transaction[:data_credito].to_s.should == '2007-10-22'
         end
       end
+      describe "trailer" do
+        before(:each) do
+          @trailer = @return_file.trailer
+        end
+        it "should have register type = 9" do
+          @trailer[:tipo_registro].should == 9
+        end
+        it "should be an Itau return type" do
+          @trailer[:codigo_banco].should == "341"
+        end
+        it "should returns the correct transactions sum" do
+          @trailer[:valor_total_informado].should == 97.36
+        end
+      end
     end
     
 end
