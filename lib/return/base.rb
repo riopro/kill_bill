@@ -30,6 +30,18 @@ module Riopro
         def parsed?
           @parsed
         end
+
+        # Verifies if parsed file is valid. Returns boolean
+        #
+        # Overwrite this method on the child class!
+        def valid?
+          raise "Abstract method called - should overwrite this method on a child class"
+        end
+
+        # Returns an array describing the problems found
+        def errors
+          @errors || []
+        end
         
         protected
         

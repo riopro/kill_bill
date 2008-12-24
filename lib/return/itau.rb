@@ -2,6 +2,28 @@ module Riopro
   module KillBill
     module Return
       class Itau < Riopro::KillBill::Return::Base
+
+        # Verifies if parsed file is valid. Returns boolean
+        def valid?
+          valid = true
+          @errors = []
+          unless self.transactions.size == self.trailer[:quantidade_detalhes]
+            @errors << "Quantidade de transações diferente da quantidade total do Trailer do arquivo"
+          end
+          if self.transactions.size > 0
+            total = 0.0
+            self.transactions.each do |transaction|
+              total += transaction[:valor_principal]
+            end
+            unless total == self.trailer[:valor_total_informado]
+              @errors << "Valor total das transações diferente do existente no Trailer do arquivo"
+            end
+          end
+
+          valid = false unless @errors.empty?
+
+          valid
+        end
         
         private
         

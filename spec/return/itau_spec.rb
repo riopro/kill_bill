@@ -72,6 +72,27 @@ describe Riopro::KillBill::Return::Itau do
           @trailer[:valor_total_informado].should == 97.36
         end
       end
+
+      describe "valid?" do
+        it "should be true using test file" do
+          @return_file.valid?.should be_true
+          @return_file.errors.should be_empty
+        end
+        it "should not be true if quantidade_detalhes is incorrect" do
+          @return_file.transactions.size.should == 2
+          @return_file.trailer[:quantidade_detalhes] = 3
+          @return_file.valid?.should be_false
+          @return_file.errors.should_not be_empty
+          @return_file.errors.size.should == 1
+        end
+        it "should not be true if valor_total_informado is incorrect" do
+          @return_file.transactions.size.should == 2
+          @return_file.trailer[:valor_total_informado] = 10.0
+          @return_file.valid?.should be_false
+          @return_file.errors.should_not be_empty
+          @return_file.errors.size.should == 1
+        end
+      end
     end
     
 end
