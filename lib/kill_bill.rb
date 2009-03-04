@@ -6,6 +6,7 @@ require 'extensions/includes'
 
 require 'bank/base'
 require 'bank/itau'
+require 'bank/bradesco'
 
 require 'return/base'
 require 'return/itau'

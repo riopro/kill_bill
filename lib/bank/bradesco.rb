@@ -4,8 +4,6 @@ module Riopro
       class Bradesco < Riopro::KillBill::Bank::Base
 
         attr_accessor :cpf_or_cnpj
-        # Expects an Array describing services included in this billing
-        attr_accessor :descriptions
 
         # bank default options
         def initialize(options = {})
@@ -21,14 +19,18 @@ module Riopro
         end
 
         #
-        # validation for attributes input
+        # validating and formating attributes input
         #
 
-        def descriptions=(write_descriptions)
-          raise ArgumentError, "Drawee should be an Array" unless write_descriptions.is_a?(Array)
-          @descriptions = write_descriptions
+        def account=(write_account)
+          raise ArgumentError, "Account size should not exced 7 chars." unless write_account.length > 7
+          @account = self.zeros_at_left(write_account, 7)
         end
 
+        def our_number=(write_our_number)
+          raise ArgumentError, "OurNumber size should not exced 11 chars." unless write_our_number.length > 11
+          @our_number = self.zeros_at_left(write_our_number, 11)
+        end
 
         # Retorna a string de números formatada com o código de barras
         # Para ser válido, o código de barras retornável tem que ter 44 caracteres
@@ -36,8 +38,7 @@ module Riopro
           self.account_cd = self.calculate_account_cd
           @formatted_value = self.zeros_at_left(self.value,10)
           @factor = self.due_on.due_day_factor
-          self.our_number = self.zeros_at_left(self.our_number,8)
-
+          
           self.build_barcode(self.calculate_barcode_cd)
         end
 
@@ -74,11 +75,6 @@ module Riopro
           pdf.move_down 16
           pdf.table [[self.drawee[:name]]], TABLE_DEFAULTS
           pdf.table [[self.instructions[0]]], TABLE_DEFAULTS
-          rows = []
-          if self.descriptions
-            self.descriptions.each { |description| rows << [description] }
-            pdf.table rows, TABLE_DEFAULTS.merge(:vertical_padding => 1)
-          end
 
           # Bank Compensation Form
           pdf.text self.typeable_line(@barcode), :at => [190, 335], :size => 12
