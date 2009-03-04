@@ -128,13 +128,14 @@ describe Riopro::KillBill::Bank::Base do
         [123.53, 10, "0000012353"],
         [0.53, 5, "00053"],
         ["123", 8, "00000123"],
-        [1234567.89, 8, "123456789"]
+        [1234567.89, 8, "123456789"],
+        ["12222a", 10, "000012222a"]
       ].each do |value, size, response|
         it "should return #{response} for #{value} and size #{size}" do
           @base.zeros_at_left(value, size).should == response
         end
       end
-      ["", "   ", 1234].each do |value|
+      ["", "   "].each do |value|
         it "should return #{value} for #{value}" do
           @base.zeros_at_left(value).should == value
         end

@@ -23,12 +23,12 @@ module Riopro
         #
 
         def account=(write_account)
-          raise ArgumentError, "Account size should not exced 7 chars." unless write_account.length > 7
+          raise ArgumentError, "Account size should not exced 7 chars." if write_account.to_s.length > 7
           @account = self.zeros_at_left(write_account, 7)
         end
 
         def our_number=(write_our_number)
-          raise ArgumentError, "OurNumber size should not exced 11 chars." unless write_our_number.length > 11
+          raise ArgumentError, "OurNumber size should not exced 11 chars." if write_our_number.to_s.length > 11
           @our_number = self.zeros_at_left(write_our_number, 11)
         end
 
