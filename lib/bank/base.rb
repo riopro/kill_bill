@@ -254,7 +254,7 @@ module Riopro
         #     value = "123.0"          | returns = "0000012300"
         def zeros_at_left(value = 0.0, size = 10)
           new_value = value.clear_currency_value
-          new_value = value.to_s if %w( Fixnum ).include?(value.class.to_s)
+          new_value = value.to_s if %w( Fixnum Bignum ).include?(value.class.to_s)
           return new_value if (new_value !~ /\S/)
           diferenca = (size - new_value.size)
 

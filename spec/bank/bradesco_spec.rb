@@ -23,21 +23,21 @@ describe Riopro::KillBill::Bank::Bradesco do
         end
       end
     end
-#    describe "for our_number attribute" do
-#      [123456789012, 12234343433434343, 2232432535546567].each do |variable|
-#        it "should not succed for #{variable}" do
-#          lambda {
-#            @bank_bradesco.our_number = variable
-#          }.should raise_error(ArgumentError)
-#        end
-#      end
-#      [123, 1234, 1234567, 2345678, 1234567890].each do |variable|
-#        it "should succed for #{variable}" do
-#          @bank_bradesco.our_number = variable
-#          @bank_bradesco.our_number.length.should == 11
-#        end
-#      end
-#    end
+    describe "for our_number attribute" do
+      [123456789012, 12234343433434343, 2232432535546567].each do |variable|
+        it "should not succed for #{variable}" do
+          lambda {
+            @bank_bradesco.our_number = variable
+          }.should raise_error(ArgumentError)
+        end
+      end
+      [123, 1234, 1234567, 2345678, 1234567890].each do |variable|
+        it "should succed for #{variable}" do
+          @bank_bradesco.our_number = variable
+          @bank_bradesco.our_number.length.should == 11
+        end
+      end
+    end
   end
 #  describe "Instance methods" do
 #    before(:each) do
