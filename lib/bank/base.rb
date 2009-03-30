@@ -1,4 +1,5 @@
 require 'prawn'
+require 'prawn/layout'
 require 'barby'
 require 'barby/barcode/code_25_interleaved'
 require 'barby/outputter/prawn_outputter'
