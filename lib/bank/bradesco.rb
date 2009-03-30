@@ -11,7 +11,7 @@ module Riopro
           self.bank = "bradesco"
           self.bank_number = 237
           self.bank_number_cd = 2
-          self.portfolio = 9 # carteira "sem registro"
+          self.portfolio = "09" # carteira "sem registro"
 
           # call this method after initialize is mandatory for every class
           # that inherits from KillBill::Bank::Base

@@ -130,20 +130,20 @@ describe Riopro::KillBill::Bank::Bradesco do
         @bank_bradesco.due_on = Date.new(2008,3,12)
       end
       it "should build barcode correctly" do
-        @bank_bradesco.barcode.should == "34191380900000000001751234567840607152550000"
+        @bank_bradesco.barcode.should == "23794380900000000000607090001234567800152550"
 
         @bank_bradesco.value = 135.00
         @bank_bradesco.due_on = Date.new(2004,9,3)
         @bank_bradesco.agency = "0810"
         @bank_bradesco.account = "53678"
         @bank_bradesco.our_number = "258281"
-        @bank_bradesco.barcode.should == "34195252300000135001750025828170810536789000"
-        @bank_bradesco.calculate_barcode_cd.should == 5
-        @bank_bradesco.build_barcode.should == "3419252300000135001750025828170810536789000"
-        @bank_bradesco.barcode.should == "34195252300000135001750025828170810536789000"
+        @bank_bradesco.barcode.should == "23799252300000135000810090000025828100536780"
+        @bank_bradesco.calculate_barcode_cd.should == 9
+        @bank_bradesco.build_barcode.should == "2379252300000135000810090000025828100536780"
+        @bank_bradesco.barcode.should == "23799252300000135000810090000025828100536780"
 
         @bank_bradesco.our_number = "10281"
-        @bank_bradesco.barcode.should == "34197252300000135001750001028160810536789000"
+        @bank_bradesco.barcode.should == "23791252300000135000810090000001028100536780"
       end
       it "should try to format our_number and value with zeros at left" do
         @bank_bradesco.our_number = "12345678"
