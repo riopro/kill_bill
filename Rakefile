@@ -5,12 +5,16 @@ require 'rubygems'
 require 'prawn'
 require 'barby'
 
+# local version number file
+require 'lib/version'
+
 desc 'Default: run specs.'
 task :default => :spec
 
 desc 'Run the specs for the plugin'
 Spec::Rake::SpecTask.new(:spec) do |t|
-  puts "KillBill specs: Running on Ruby Version: #{RUBY_VERSION}"
+  puts "KillBill specs, versão #{Riopro::KillBill::VERSION}"
+  puts "Running on Ruby Version: #{RUBY_VERSION}"
   puts "Running prawn version #{Prawn::VERSION}"
   t.spec_opts = ['--colour --format progress --loadby mtime --reverse']
   t.spec_files = FileList['spec/**/*_spec.rb']

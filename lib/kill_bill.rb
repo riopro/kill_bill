@@ -9,3 +9,5 @@ require 'bank/itau'
 
 require 'return/base'
 require 'return/itau'
+
+require 'version'
