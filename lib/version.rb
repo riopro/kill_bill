@@ -1,5 +1,5 @@
 module Riopro
   module KillBill
-    VERSION = "0.10"
+    VERSION = "0.2.0"
   end
 end
