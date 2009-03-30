@@ -65,13 +65,13 @@ module Riopro
         # parameters that will be used to generate both the pdf file or the pdf stream
         def pdf_parameters(pdf)
           @barcode = self.barcode
-          pdf.font.size = 8
+          pdf.font "Helvetica", { :size => 8 }
           # User receipt
           pdf.move_down 86
           data = [ [self.transferor, "#{self.agency}/#{self.account}-#{self.account_cd}", self.currency_symbol, {:text => self.quantity, :align => :center}, "#{self.our_number}-#{self.calculate_our_number_cd}"]]
-          pdf.table data, TABLE_DEFAULTS.merge(:widths => { 0 => 270, 1 => 96, 2 => 44, 3 => 40, 4 => 100})
+          pdf.table data, TABLE_DEFAULTS.merge(:column_widths => { 0 => 270, 1 => 96, 2 => 44, 3 => 40, 4 => 100})
           data = [ [self.document_number, self.cpf_or_cnpj, self.due_on.to_s_br, self.value.to_currency ]]
-          pdf.table data, TABLE_DEFAULTS.merge(:widths => { 0 => 160, 1 => 120, 2 => 120, 3 => 140 })
+          pdf.table data, TABLE_DEFAULTS.merge(:column_widths => { 0 => 160, 1 => 120, 2 => 120, 3 => 140 })
           pdf.move_down 16
           pdf.table [[self.drawee[:name]]], TABLE_DEFAULTS
           pdf.table [[self.instructions[0]]], TABLE_DEFAULTS
@@ -79,8 +79,8 @@ module Riopro
           # Bank Compensation Form
           pdf.text self.typeable_line(@barcode), :at => [190, 335], :size => 12
           pdf.y = 350
-          pdf.table [[self.payment_text, self.due_on.to_s_br ]], TABLE_DEFAULTS.merge(:widths => { 0 => 450 } )
-          pdf.table [[self.transferor, "#{self.agency}/#{self.account}-#{self.account_cd}" ]], TABLE_DEFAULTS.merge(:widths => { 0 => 450 } )
+          pdf.table [[self.payment_text, self.due_on.to_s_br ]], TABLE_DEFAULTS.merge(:column_widths => { 0 => 450 } )
+          pdf.table [[self.transferor, "#{self.agency}/#{self.account}-#{self.account_cd}" ]], TABLE_DEFAULTS.merge(:column_widths => { 0 => 450 } )
           pdf.table [
             [
               self.documented_at.to_s_br,
@@ -90,8 +90,8 @@ module Riopro
               self.processed_at.to_s_br,
               "#{self.portfolio}/#{self.our_number}-#{self.calculate_our_number_cd}"
             ]
-          ], TABLE_DEFAULTS.merge(:widths => { 0 => 100, 1 => 100, 2 => 80, 3 => 40, 4 => 100 } )
-          pdf.table [["", self.portfolio, self.currency_symbol, self.quantity, self.value.to_currency, (self.quantity * self.value).to_currency]], TABLE_DEFAULTS.merge(:widths => { 0 => 100, 1 => 100, 2 => 80, 3 => 40, 4 => 100 } )
+          ], TABLE_DEFAULTS.merge(:column_widths => { 0 => 100, 1 => 100, 2 => 80, 3 => 40, 4 => 100 } )
+          pdf.table [["", self.portfolio, self.currency_symbol, self.quantity, self.value.to_currency, (self.quantity * self.value).to_currency]], TABLE_DEFAULTS.merge(:column_widths => { 0 => 100, 1 => 100, 2 => 80, 3 => 40, 4 => 100 } )
           y  = 210
           self.instructions.each do |instruction|
             pdf.text instruction, :at => [5, y]
