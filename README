@@ -11,7 +11,7 @@ autor original é Kivanio
 
 Para execução, necessita das Gems instaladas:
 
-prawn >= (0.2.99)
+prawn = (0.3.0)
 barby >= (0.2.1)
 
 Para testes necessita das Gems instaladas:
