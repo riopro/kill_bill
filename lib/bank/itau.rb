@@ -68,7 +68,7 @@ module Riopro
         # parameters that will be used to generate both the pdf file or the pdf stream
         def pdf_parameters(pdf)
           @barcode = self.barcode
-          pdf.font.size = 8
+          pdf.font "Courier", { :size => 8 }
           # User receipt
           pdf.move_down 86
           data = [ [self.transferor, "#{self.agency}/#{self.account}-#{self.account_cd}", self.currency_symbol, {:text => self.quantity, :align => :center}, "#{self.our_number}-#{self.calculate_our_number_cd}"]]
