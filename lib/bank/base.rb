@@ -1,5 +1,6 @@
 require 'prawn'
 require 'prawn/layout'
+require 'prawn/fast_png'
 require 'barby'
 require 'barby/barcode/code_25_interleaved'
 require 'barby/outputter/prawn_outputter'
@@ -121,7 +122,7 @@ module Riopro
 
         # Render class attributes to pdf file. Returns a pdf stream
         def to_pdf
-          @pdf = Prawn::Document.new(:background => File.dirname(__FILE__) + "/../images/#{self.bank.downcase}.jpg")
+          @pdf = Prawn::Document.new(:background => File.dirname(__FILE__) + "/../images/#{self.bank.downcase}.png")
           self.pdf_parameters(@pdf)
           @pdf.render
         end
@@ -129,7 +130,7 @@ module Riopro
         # Render class attributes to pdf file. Saves pdf to the destination
         # setted in the filename parameter
         def to_pdf_file(filename = nil)
-          Prawn::Document.generate(filename, :background => File.dirname(__FILE__) + "/../images/#{self.bank.downcase}.jpg") do |pdf|
+          Prawn::Document.generate(filename, :background => File.dirname(__FILE__) + "/../images/#{self.bank.downcase}.png") do |pdf|
             self.pdf_parameters(pdf)
           end
         end
