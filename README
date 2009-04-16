@@ -15,10 +15,21 @@ prawn >= (0.4.1)
 prawn-layout >= (0.1.0)
 prawn-fast-png >= (0.1.1)
 barby >= (0.2.1)
+rmagick >= (2.9.1)
+
+Além disso, instale o ImageMagick na sua máquina. Se você usar o Ubuntu:
+
+$ sudo aptitude install imagemagick libmagick9-dev
 
 Para testes necessita das Gems instaladas:
 
 rspec >= (1.1.11)
+
+
+Nota: O RMagick é uma necessidade do prawn-fast-png e ajuda a aumentar a
+velocidade de renderização de arquivos PNG que contém transparência. A leitura
+do AlphaChannel do PNG em Ruby puro estava muito lenta.
+
 
 Example
 =======
