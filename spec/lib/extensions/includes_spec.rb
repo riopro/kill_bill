@@ -24,5 +24,17 @@ describe "Includes" do
         end
       end
     end
+    describe ".to_s_br" do
+
+      [
+        ["2000-07-03", "03/07/2000"],
+        ["2000-07-05", "05/07/2000"],
+        ["2010-11-17", "17/11/2010"],
+      ].each do |date_test, value_expected|
+        it "should return #{value_expected} for #{date_test}" do
+           date_test.to_date.to_s_br.should == value_expected
+        end
+      end
+    end
   end
 end
