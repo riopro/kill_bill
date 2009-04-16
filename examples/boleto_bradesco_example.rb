@@ -19,4 +19,4 @@ require "kill_bill"
   :instructions => ["Pagável em qualquer agência até o vencimento.", "Após, favor solicitar outro."],
   :descriptions => ["Uma sardinha"]
 )
-@boleto.to_pdf_file("boleto_itau.pdf")
+@boleto.to_pdf_file("boleto_bradesco.pdf")
