@@ -21,6 +21,10 @@ module Riopro
         #
         # validating and formating attributes input
         #
+        def agency=(write_agency)
+          raise ArgumentError, "Account size should not exced 4 chars." if write_agency.to_s.length > 4
+          @agency = self.zeros_at_left(write_agency, 4)
+        end
 
         def account=(write_account)
           raise ArgumentError, "Account size should not exced 7 chars." if write_account.to_s.length > 7
@@ -54,7 +58,7 @@ module Riopro
 
         # Calculates our number check digit according to Itaú criteria
         def calculate_our_number_cd
-          module10("#{self.agency}#{self.account}#{self.portfolio}#{self.our_number}");
+          module11_2to7("#{self.portfolio}#{self.our_number}");
         end
 
         # Calculates account check digit according to Bradesco criteria
