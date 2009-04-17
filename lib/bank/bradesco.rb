@@ -4,6 +4,8 @@ module Riopro
       class Bradesco < Riopro::KillBill::Bank::Base
 
         attr_accessor :cpf_or_cnpj
+        # Expects an Array describing services included in this billing
+        attr_accessor :descriptions
 
         # bank default options
         def initialize(options = {})
@@ -34,6 +36,11 @@ module Riopro
         def our_number=(write_our_number)
           raise ArgumentError, "OurNumber size should not exced 11 chars." if write_our_number.to_s.length > 11
           @our_number = self.zeros_at_left(write_our_number, 11)
+        end
+
+        def descriptions=(write_descriptions)
+          raise ArgumentError, "Drawee should be an Array" unless write_descriptions.is_a?(Array)
+          @descriptions = write_descriptions
         end
 
         # Retorna a string de números formatada com o código de barras
@@ -79,7 +86,7 @@ module Riopro
           pdf.font "Helvetica", { :size => 8 }
           # User receipt
           pdf.move_down 86
-          data = [ [self.transferor, "#{self.agency}/#{self.account}-#{self.account_cd}", self.currency_symbol, {:text => self.quantity, :align => :center}, "#{self.our_number}-#{self.calculate_our_number_cd}"]]
+          data = [ [self.transferor, "#{self.agency}-#{self.agency_cd}/#{self.account}-#{self.account_cd}", self.currency_symbol, {:text => self.quantity, :align => :center}, "#{self.our_number}-#{self.calculate_our_number_cd}"]]
           pdf.table data, TABLE_DEFAULTS.merge(:column_widths => { 0 => 270, 1 => 96, 2 => 44, 3 => 40, 4 => 100})
           data = [ [self.document_number, self.cpf_or_cnpj, self.due_on.to_s_br, self.value.to_currency ]]
           pdf.table data, TABLE_DEFAULTS.merge(:column_widths => { 0 => 160, 1 => 120, 2 => 120, 3 => 140 })
@@ -91,7 +98,7 @@ module Riopro
           pdf.text self.typeable_line(@barcode), :at => [190, 335], :size => 12
           pdf.y = 350
           pdf.table [[self.payment_text, self.due_on.to_s_br ]], TABLE_DEFAULTS.merge(:column_widths => { 0 => 450 } )
-          pdf.table [[self.transferor, "#{self.agency}/#{self.account}-#{self.account_cd}" ]], TABLE_DEFAULTS.merge(:column_widths => { 0 => 450 } )
+          pdf.table [["#{self.transferor} - #{self.cpf_or_cnpj}", "#{self.agency}-#{self.agency_cd}/#{self.account}-#{self.account_cd}" ]], TABLE_DEFAULTS.merge(:column_widths => { 0 => 450 } )
           pdf.table [
             [
               self.documented_at.to_s_br,
