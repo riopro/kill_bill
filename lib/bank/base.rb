@@ -230,6 +230,25 @@ module Riopro
           return [0,10,11].include?(valor) ? 1 : valor
         end
 
+        # Calculus Module 11 with multipliers 2 to 7
+        # returns nil if does not receive a only numbers string
+        def module11_2to7(value = "")
+          return nil unless value && (value !~ /[^0-9]+/)
+
+          multipliers = [2,3,4,5,6,7]
+          total = 0
+          position_multiplier = 0
+
+          for caracter in value.split(//).reverse!
+            position_multiplier = 0 if (position_multiplier == 6)
+            total += (caracter.to_i * multipliers[position_multiplier])
+            position_multiplier += 1
+          end
+
+          valor = (11 - (total % 11))
+          return valor == 10 ? "P" : ( valor == 11 ? 0 : valor )
+        end
+
         # Sums the digits of a number. Just for _Fixnum_'s
         # Ex. 1 = 1
         #     11 = (1+1) = 2
