@@ -168,8 +168,9 @@ describe Riopro::KillBill::Bank::Bradesco do
           ["02", "90840000416", 0],
           ["02", "90510000304", "P"],
           ["19", "00000000002", 8],
-          ["19", "00000000001", "P"],
+          ["09", "00000000002", "P"],
           ["19", "00000000006", 0],
+          ["09", "00606011457", "P"],
         ].each do |portfolio, our_number, cd|
           it "should return #{cd} as check digit for #{our_number} and portfolio #{portfolio}" do
             @bank_bradesco.portfolio = portfolio

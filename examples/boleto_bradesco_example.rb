@@ -6,7 +6,7 @@ require "activesupport"
 require "kill_bill"
 
 @boleto = Riopro::KillBill::Bank::Bradesco.new(
-  :our_number => "12345678",
+  :our_number => "606011457",
   :agency => "3369",
   :account => "0061605",
   :value => 123.45,
