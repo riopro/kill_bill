@@ -136,7 +136,14 @@ describe Riopro::KillBill::Bank::Bradesco do
         ["468", 5],
         ["3122", 4],
         ["445", 6],
-        ["3469", 0]
+        ["3469", 0],
+        ["2950",5],
+        [3428, 2],
+        [3546, 7],
+        [2704, 9],
+        [845, 1],
+        ["0845", 1],
+        [3060,0]
       ].each do |agency, cd|
         it "should return #{cd} as check digit foraccount #{agency}" do
           @bank_bradesco.agency = agency
