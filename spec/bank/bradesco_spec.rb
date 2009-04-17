@@ -110,7 +110,9 @@ describe Riopro::KillBill::Bank::Bradesco do
       end
       [
         ["0061605", 2],
+        ["61605", 2],
         ["0378965", 9],
+        ["378965", 9],
       ].each do |account, cd|
         it "should return #{cd} as check digit foraccount #{account}" do
           @bank_bradesco.account = account
@@ -122,7 +124,6 @@ describe Riopro::KillBill::Bank::Bradesco do
     describe "calculate_agency_cd" do
       before(:each) do
         @bank_bradesco.agency = "3369"
-        @bank_bradesco.account = "0061605"
       end
       it "should call module11_2to7" do
         @bank_bradesco.should_receive(:module11_2to7).with("#{@bank_bradesco.agency}").and_return(1)

@@ -7,8 +7,8 @@ require "kill_bill"
 
 @boleto = Riopro::KillBill::Bank::Bradesco.new(
   :our_number => "12345678",
-  :agency => "0601",
-  :account => "10075",
+  :agency => "3369",
+  :account => "0061605",
   :value => 123.45,
   :due_on => Date.today,
   :transferor => "Riopro Informática LTDA",

@@ -40,6 +40,7 @@ module Riopro
         # Para ser válido, o código de barras retornável tem que ter 44 caracteres
         def barcode
           self.account_cd = self.calculate_account_cd
+          self.agency_cd = self.calculate_agency_cd
           @formatted_value = self.zeros_at_left(self.value,10)
           @factor = self.due_on.due_day_factor
           
