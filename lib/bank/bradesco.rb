@@ -59,7 +59,7 @@ module Riopro
 
         # Calculates our number check digit according to Bradesco criteria
         def calculate_our_number_cd
-          module11_2to7("#{self.portfolio}#{self.our_number}");
+          module11_2to7P("#{self.portfolio}#{self.our_number}");
         end
 
         # Calculates account check digit according to Bradesco criteria

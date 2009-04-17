@@ -230,9 +230,20 @@ module Riopro
           return [0,10,11].include?(valor) ? 1 : valor
         end
 
+
+        def module11_2to7P(value = "")
+          dv = self.module11_2to7base(value)
+          return dv == 10 ? "P" : ( dv == 11 ? 0 : dv )
+        end
+
+        def module11_2to7(value = "")
+          dv = self.module11_2to7base(value)
+          return ([10, 11].include?(dv) ) ? 0 : dv
+        end
+
         # Calculus Module 11 with multipliers 2 to 7
         # returns nil if does not receive a only numbers string
-        def module11_2to7(value = "")
+        def module11_2to7base(value = "")
           return nil unless value && (value !~ /[^0-9]+/)
 
           multipliers = [2,3,4,5,6,7]

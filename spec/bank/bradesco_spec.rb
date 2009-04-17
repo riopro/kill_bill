@@ -157,26 +157,24 @@ describe Riopro::KillBill::Bank::Bradesco do
       before(:each) do
         @bank_bradesco.portfolio = "09"
       end
-      describe "portfolio 09" do
-        it "should call module11_2to7" do
-          @bank_bradesco.should_receive(:module11_2to7).with("#{@bank_bradesco.portfolio}#{@bank_bradesco.our_number}").and_return(1)
-          @bank_bradesco.calculate_our_number_cd.should == 1
-        end
-        [
-          ["02", "90960000533", 8],
-          ["02", "90700000300", 2],
-          ["02", "90840000416", 0],
-          ["02", "90510000304", "P"],
-          ["19", "00000000002", 8],
-          ["09", "00000000002", "P"],
-          ["19", "00000000006", 0],
-          ["09", "00606011457", "P"],
-        ].each do |portfolio, our_number, cd|
-          it "should return #{cd} as check digit for #{our_number} and portfolio #{portfolio}" do
-            @bank_bradesco.portfolio = portfolio
-            @bank_bradesco.our_number = our_number
-            @bank_bradesco.calculate_our_number_cd.should == cd
-          end
+      it "should call module11_2to7" do
+        @bank_bradesco.should_receive(:module11_2to7P).with("#{@bank_bradesco.portfolio}#{@bank_bradesco.our_number}").and_return(1)
+        @bank_bradesco.calculate_our_number_cd.should == 1
+      end
+      [
+        ["02", "90960000533", 8],
+        ["02", "90700000300", 2],
+        ["02", "90840000416", 0],
+        ["02", "90510000304", "P"],
+        ["19", "00000000002", 8],
+        ["09", "00000000002", "P"],
+        ["19", "00000000006", 0],
+        ["09", "00606011457", "P"],
+      ].each do |portfolio, our_number, cd|
+        it "should return #{cd} as check digit for #{our_number} and portfolio #{portfolio}" do
+          @bank_bradesco.portfolio = portfolio
+          @bank_bradesco.our_number = our_number
+          @bank_bradesco.calculate_our_number_cd.should == cd
         end
       end
     end
