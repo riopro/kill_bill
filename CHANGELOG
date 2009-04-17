@@ -1,0 +1,16 @@
+== Changelog ==
+
+* 0.3.0
+
+- Passando a gerar as imagens de fundo em PNG ao invés de JPG, usando a nova
+gem prawn-fast-png (http://github.com/otaviofcs/prawn-fast-png) acelerou a
+leitura do AlphaChannel (transparência) dos arquivos PNG;
+- Incluindo os boletos bancários do Bradesco (com testes, exemplo, templates).
+
+* 0.2.0
+
+- Atualizando para o Prawn 0.4.1.
+
+* 0.1.0
+
+Imp

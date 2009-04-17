@@ -89,11 +89,9 @@ renderização do boleto propriamente dita.
 Melhorias desejadas e Roadmap
 =============================
 
-Por hora o KillBill usa os templates de imagem em jpg, porque o prawn só suporta
-jpg e png, mas a renderização de png ainda está muito lenta.
-
 Seria importante que os métodos to_pdf e to_pdf_file chamassem um método
 valid! que validaria se os campos estão corretos antes de tentar criar o pdf.
+
 Isso porque acreditamos que um boleto só deve ser gerado se ele puder ser gerado.
 Ou seja, se um campo obrigatório não foi preenchido (como o sacado por exemplo),
 deve ser obrigatorio que a biblioteca levante um erro informando que atributo 
@@ -102,7 +100,15 @@ exatamente não foi preenchido ou foi preenchido incorretamente.
 O objetivo agora é acrescentar o maior número possível de bancos, sem desvirtuar
 o conceito de simplicidade do KillBill.
 
+consulte também o arquivo CHANGELOG para ver as modificações em cada versão.
 
 
+Agradecimentos
+=============================
+* Kivanio Pereira Barbosa (kivanio at gmail dot com) pela troca de idéias e pela
+criação do acts_as_payment, no qual o KillBill se baseou inicialmente.
+
+* Felipe Cruxen Godinho (felipecruxen at turboseg dot com dot br) por parte do
+código para implementar os boletos do banco Bradesco.
 
 Copyright (c) 2008 Riopro Informática Ltda, released under the MIT license
