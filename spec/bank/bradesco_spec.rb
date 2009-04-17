@@ -101,12 +101,47 @@ describe Riopro::KillBill::Bank::Bradesco do
 #
     describe "calculate_account_cd" do
       before(:each) do
-        @bank_bradesco.agency = "1234"
-        @bank_bradesco.account = "56789"
+        @bank_bradesco.agency = "3369"
+        @bank_bradesco.account = "0061605"
       end
-      it "should call module10" do
-        @bank_bradesco.should_receive(:module10).with("#{@bank_bradesco.agency}#{@bank_bradesco.account}").and_return(1)
+      it "should call module11_2to7" do
+        @bank_bradesco.should_receive(:module11_2to7).with("#{@bank_bradesco.account}").and_return(1)
         @bank_bradesco.calculate_account_cd.should == 1
+      end
+      [
+        ["0061605", 2],
+        ["0378965", 9],
+      ].each do |account, cd|
+        it "should return #{cd} as check digit foraccount #{account}" do
+          @bank_bradesco.account = account
+          @bank_bradesco.calculate_account_cd.should == cd
+        end
+      end
+    end
+
+    describe "calculate_agency_cd" do
+      before(:each) do
+        @bank_bradesco.agency = "3369"
+        @bank_bradesco.account = "0061605"
+      end
+      it "should call module11_2to7" do
+        @bank_bradesco.should_receive(:module11_2to7).with("#{@bank_bradesco.agency}").and_return(1)
+        @bank_bradesco.calculate_agency_cd.should == 1
+      end
+      [
+        ["3369", 3],
+        ["0097", 3],
+        ["2773",1],
+        ["1803", 1],
+        ["468", 5],
+        ["3122", 4],
+        ["445", 6],
+        ["3469", 0]
+      ].each do |agency, cd|
+        it "should return #{cd} as check digit foraccount #{agency}" do
+          @bank_bradesco.agency = agency
+          @bank_bradesco.calculate_agency_cd.should == cd
+        end
       end
     end
 

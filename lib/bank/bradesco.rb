@@ -56,14 +56,20 @@ module Riopro
           barcode
         end
 
-        # Calculates our number check digit according to Itaú criteria
+        # Calculates our number check digit according to Bradesco criteria
         def calculate_our_number_cd
           module11_2to7("#{self.portfolio}#{self.our_number}");
         end
 
         # Calculates account check digit according to Bradesco criteria
         def calculate_account_cd
-          module10("#{self.agency}#{self.account}")
+          cd = module11_2to7(self.account)
+          return (cd == "P") ? 0 : cd
+        end
+
+        def calculate_agency_cd
+          cd = module11_2to7(self.agency)
+          return (cd == "P") ? 0 : cd
         end
 
         # parameters that will be used to generate both the pdf file or the pdf stream
