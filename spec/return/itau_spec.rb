@@ -23,6 +23,9 @@ describe Riopro::KillBill::Return::Itau do
         it "should have register type = 0" do
           @return_file.header[:tipo_registro].should == 0
         end
+        it "should have sequence number" do
+          @return_file.header[:numero_sequencial].should == "000001"
+        end
       end
       describe "transaction" do
         before(:each) do
