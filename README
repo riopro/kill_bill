@@ -102,6 +102,17 @@ o conceito de simplicidade do KillBill.
 
 consulte também o arquivo CHANGELOG para ver as modificações em cada versão.
 
+Bancos Suportados e Comentários
+===============================
+
+Atualmente, o KillBill suporta os seguintes bancos:
+
+* Itaú - tanto para geração de boleto quanto para tratamento de arquivo
+    de retorno;
+* Bradesco - tanto para geração de boleto quanto para tratamento de arquivo
+    de retorno, apenas registros de transação Tipo 1. Ou seja, não suporta
+    os registros de rateio entre empresas;
+
 
 Agradecimentos
 =============================
