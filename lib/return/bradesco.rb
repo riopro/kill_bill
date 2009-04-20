@@ -55,7 +55,7 @@ module Riopro
               # identificação por extenso do tipo de serviço
               :literal_servico => string[11..25],
               # código da empresa no bradesco
-              :codigo_empresa => string[26..45],
+              :codigo_empresa => string[26..45].strip,
               # razão social da empresa
               :razao_social => string[46..75],
               # número do banco na câmara de compensação
@@ -63,7 +63,7 @@ module Riopro
               # nome por extenso do banco cobrador
               :nome_banco => string[79..93].strip,
               # data de geração do arquivo
-              :data_geracao => string[94..99],
+              :data_geracao => convert_date(string[94..99]),
               # brancos
               #:brancos1 => string[100..107],
               # número aviso bancário
@@ -71,7 +71,7 @@ module Riopro
               # brancos
               #:brancos2 => string[113..378],
               # data de crédito dos lançamentos
-              :data_credito => string[379..384],
+              :data_credito => convert_date(string[379..384]),
               # brancos
               #:brancos3 => string[385..393],
               # número sequencial do registro no arquivo
