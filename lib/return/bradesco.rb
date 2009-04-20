@@ -7,7 +7,7 @@ module Riopro
         def valid?
           valid = true
           @errors = []
-          unless self.transactions.size == self.trailer[:quantidade_detalhes]
+          unless self.transactions.size == self.trailer_total
             @errors << "Quantidade de transações diferente da quantidade total do Trailer do arquivo"
           end
           if self.transactions.size > 0
@@ -26,6 +26,20 @@ module Riopro
         end
         
         private
+
+          # Sum quantities for all transactions types
+          def trailer_total
+            self.trailer[:quantidade_titulos_simples] +
+              self.trailer[:quantidade_titulos_simples] +
+              self.trailer[:quantidade_confirmacao_entrada] +
+              self.trailer[:quantidade_registros_liquidados] +
+              self.trailer[:quantidade_titulos_baixados] +
+              self.trailer[:quantidade_abatimento_cancelado] +
+              self.trailer[:quantidade_vencimento_alterado] +
+              self.trailer[:quantidade_abatimento_concedido] +
+              self.trailer[:quantidade_confirmacao_protesto] +
+              self.trailer[:quantidade_rateios_efetuados]
+          end
         
           # Parses the header line and returns a hash.
           def parse_header(string)
@@ -135,33 +149,37 @@ module Riopro
               # identificação do registro transação
               :tipo_registro => string[0..0].to_i,
               # identificação do tipo de inscrição/empresa
+              # (01-CPF; 02-CNPJ; 03-PIS/PASEP;98-não tem;99-Outros)
               :codigo_inscricao => string[1..2],
               # número de inscrição da empresa (cpf/cnpj)
               :numero_inscricao => string[3..16],
-              # agência mantenedora da conta
-              :agencia => string[17..20],
-              # complemento de registro
-              :zeros => string[21..22],
-              # número da conta corrente da empresa
-              :conta => string[23..27],
-              # dígito de auto-conferência ag/conta empresa
-              :dac => string[28..28],
-              # complemento de registro
-              #:brancos1 => string[29..36],
+              # brancos
+              #:brancos1 => string[17..19],
+              #:zero => string[20..20],
+              # carteira de boletos
+              :carteira => string[21..22],
+              # agência
+              :agencia => string[23..27],
+              # dígito da agência
+              :agencia_cd => string[28..28],
+              # conta corrente
+              :conta_corrente => string[29..35],
+              # dígito conta corrente
+              :conta_corrente_cd => string[36..36],
               # identificação do título na empresa
               :uso_da_empresa => string[37..61],
+              # zeros
+              #:zeros1 => string[62..69],
               # identificação do título no banco
-              :nosso_numero1 => string[62..69],
+              :nosso_numero => string[70..81],
               # complemento de registro
-              #:brancos2 => string[70..81],
-              # número da carteira
-              :carteira1 => string[82..84],
-              # identificação do título no banco
-              :nosso_numero2 => string[85..92],
-              # dac do nosso número
-              :dac_nosso_numero => string[93..93],
-              # complemento de registro
-              #:brancos3 => string[94..106],
+              #:brancos2 => string[82..91],
+              # zeros
+              #:zeros2 => string[92..103],
+              # Somente será informado “R” ou branco
+              :indicador_rateio => string[104..104],
+              # zeros
+              #:zeros3 => string[105..106],
               # código da carteira
               :carteira2 => string[107..107],
               # identificação da ocorrência
@@ -171,25 +189,27 @@ module Riopro
               # número do documento de cobrança (dupl, np etc)
               :numero_documento => string[116..125],
               # confirmação do número do título no banco
-              :nosso_numero3 => string[126..133],
-              # complemento de registro
-              #:brancos4 => string[134..145],
-              # data de vencimento do título
+              :nosso_numero3 => string[126..145],
+              # data de vencimento do titulo
               :vencimento => convert_date(string[146..151]),
               # valor nominal do título
               :valor_titulo => string[152..164].to_f / 100,
               # número do banco na câmara de compensação
-              :codigo_banco => string[165..167],
+              :codigo_banco_cobrador => string[165..167],
               # ag. cobradora, ag. de liquidação ou baixa
-              :agencia_cobradora => string[168..171],
-              # dac da agência cobradora
-              :dac_agencia_cobradora => string[172..172],
+              :agencia_cobradora => string[168..172],
               # espécie do título
               :especie => string[173..174],
               # valor da despesa de cobrança
+              # para os códigos de ocorrência (:codigo_ocorrencia)
+              # 02 - Entrada Confirmada
+              # 28 - Débito de tarifas
               :tarifa_cobranca => string[175..187].to_f / 100,
-              # complemento de registro
-              #:brancos5 => string[188..213],
+              # outras despesas / custos de protesto
+              :outras_despesas_custos => string[188..200].to_f / 100,
+              # outras despesas / custos de protesto
+              # não será informado
+              #:juros_operacao_atraso => string[201..213].to_f / 100,
               # valor do iof a ser recolhido (notas seguro)
               :valor_iof => string[214..226].to_f / 100,
               # valor do abatimento concedido
@@ -207,19 +227,19 @@ module Riopro
               # data de crédito desta liquidação
               :data_credito => convert_date(string[295..300]),
               # código da instrução cancelada
-              :instrucao_cancelada => string[301..304],
+              :origem_pagamento => string[301..303],
               # complemento de registro
-              #:brancos7 => string[305..323],
-              # nome do sacado
-              :nome_sacado => string[324..353],
-              # complemento de registro
-              #:brancos8 => string[354..376],
-              # registros rejeitados ou alegação do sacado
-              :erros => string[377..384],
-              # complemento de registro
-              #:brancos9 => string[385..391],
-              # meio pelo qual o título foi liquidado
-              :codigo_liquidacao => string[392..393],
+              #:brancos7 => string[304..317],
+              # motivo de rejeição (para :codigo_ocorrencia)
+              :motivo_rejeicao => string[318..327],
+              # brancos
+              #:brancos8 => string[328..367],
+              # número cartório
+              :numero_cartorio => string[368..369],
+              #
+              :numero_protocolo => string[370..379],
+              # brancos
+              #:brancos9 => string[380..393],
               # número sequencial do registro no arquivo
               :numero_sequencial => string[394..399].to_i
             }
