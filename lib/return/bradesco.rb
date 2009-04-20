@@ -30,7 +30,7 @@ module Riopro
           # Parses the header line and returns a hash.
           def parse_header(string)
             {
-              # identificação do registro header
+              # identificação do registro header (conteúdo 0)
               :tipo_registro => string[0..0].to_i,
               # identificação do arquivo retorno
               :codigo_retorno => string[1..1],
@@ -40,34 +40,26 @@ module Riopro
               :codigo_servico => string[9..10],
               # identificação por extenso do tipo de serviço
               :literal_servico => string[11..25],
-              # agência mantenedora da conta
-              :agencia => string[26..29],
-              # complemento de registro
-              :zeros => string[30..31],
-              # número da conta corrente da empresa
-              :conta => string[32..36],
-              # dígito de auto-conferência ag/conta empresa
-              :dac => string[37..37],
-              # complemento do registro
-              #:brancos1 => string[38..45],
-              # nome por extenso da "empresa mãe"
-              :nome_empresa => string[46..75],
+              # código da empresa no bradesco
+              :codigo_empresa => string[26..45],
+              # razão social da empresa
+              :razao_social => string[46..75],
               # número do banco na câmara de compensação
               :codigo_banco => string[76..78],
               # nome por extenso do banco cobrador
               :nome_banco => string[79..93].strip,
               # data de geração do arquivo
               :data_geracao => string[94..99],
-              # unidade de densidade
-              :densidade => string[100..104],
-              # densidade de gravação do arquivo
-              :unidade_densidade => string[105..107],
-              # número sequencial do arquivo retorno
-              :numero_sequencial_arquivo_retorno => string[108..112],
+              # brancos
+              #:brancos1 => string[100..107],
+              # número aviso bancário
+              :numero_aviso_bancario => string[108..112],
+              # brancos
+              #:brancos2 => string[113..378],
               # data de crédito dos lançamentos
-              :data_credito => string[113..118],
-              # complemento do registro
-              #:brancos2 => string[119..393],
+              :data_credito => string[379..384],
+              # brancos
+              #:brancos3 => string[385..393],
               # número sequencial do registro no arquivo
               :numero_sequencial => string[394..399]
             }
