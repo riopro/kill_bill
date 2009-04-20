@@ -98,12 +98,12 @@ module Riopro
               :quantidade_confirmacao_entrada => string[57..61].to_i,
               # valor total registros ocorrência 02 - confirmação entradas
               :valor_total_confirmacao_entrada => string[62..73].to_f/100,
-              # Campo duplicado? repete logo abaixo no arquivo
-              # :valor_total_registros_liquidados => string[74..85].to_f/100,
+              # valor total registros ocorrência 06 - liquidação
+              :valor_total_registros_liquidados => string[74..85].to_f/100,
               # quantidade registros ocorrência 06 - liquidação
               :quantidade_registros_liquidados => string[86..90].to_i,
-              # valor total registros ocorrência 06 - liquidação
-              :valor_total_registros_liquidados => string[91..102].to_f/100,
+              # Campo duplicado? repete logo acima no arquivo
+              # :valor_total_registros_liquidados => string[91..102].to_f/100,
               # quantidade registros ocorrência 09 e 10 - títulos baixados
               :quantidade_titulos_baixados => string[103..107].to_i,
               # valor total registros ocorrência 09 e 10 - títulos baixados
