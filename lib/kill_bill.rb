@@ -10,5 +10,6 @@ require 'bank/bradesco'
 
 require 'return/base'
 require 'return/itau'
+require 'return/bradesco'
 
 require 'version'
