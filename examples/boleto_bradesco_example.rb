@@ -2,7 +2,7 @@
 $LOAD_PATH << File.join(File.dirname(__FILE__), '..', 'lib')
 require "rubygems"
 require "date"
-require "activesupport"
+require "active_support"
 require "kill_bill"
 
 @boleto = Riopro::KillBill::Bank::Bradesco.new(

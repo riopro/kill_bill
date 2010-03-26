@@ -86,7 +86,7 @@ module Riopro
           pdf.font "Helvetica", { :size => 8 }
           # User receipt
           pdf.move_down 86
-          data = [ [self.transferor, "#{self.agency}-#{self.agency_cd}/#{self.account}-#{self.account_cd}", self.currency_symbol, {:text => self.quantity, :align => :center}, "#{self.our_number}-#{self.calculate_our_number_cd}"]]
+          data = [ [self.transferor, "#{self.agency}-#{self.agency_cd}/#{self.account}-#{self.account_cd}", self.currency_symbol, {:text => self.quantity.to_s, :align => :center}, "#{self.our_number}-#{self.calculate_our_number_cd}"]]
           pdf.table data, TABLE_DEFAULTS.merge(:column_widths => { 0 => 270, 1 => 96, 2 => 44, 3 => 40, 4 => 100})
           data = [ [self.document_number, self.cpf_or_cnpj, self.due_on.to_s_br, self.value.to_currency ]]
           pdf.table data, TABLE_DEFAULTS.merge(:column_widths => { 0 => 160, 1 => 120, 2 => 120, 3 => 140 })
@@ -95,7 +95,7 @@ module Riopro
           pdf.table [[self.instructions[0]]], TABLE_DEFAULTS
 
           # Bank Compensation Form
-          pdf.text self.typeable_line(@barcode), :at => [190, 335], :size => 12
+          pdf.text_box self.typeable_line(@barcode), :at => [190, 335], :size => 12
           pdf.y = 350
           pdf.table [[self.payment_text, self.due_on.to_s_br ]], TABLE_DEFAULTS.merge(:column_widths => { 0 => 450 } )
           pdf.table [["#{self.transferor} - #{self.cpf_or_cnpj}", "#{self.agency}-#{self.agency_cd}/#{self.account}-#{self.account_cd}" ]], TABLE_DEFAULTS.merge(:column_widths => { 0 => 450 } )
@@ -112,12 +112,12 @@ module Riopro
           pdf.table [["", self.portfolio, self.currency_symbol, self.quantity, self.value.to_currency, (self.quantity * self.value).to_currency]], TABLE_DEFAULTS.merge(:column_widths => { 0 => 100, 1 => 100, 2 => 80, 3 => 40, 4 => 100 } )
           y  = 210
           self.instructions.each do |instruction|
-            pdf.text instruction, :at => [5, y]
+            pdf.text_box instruction, :at => [5, y]
             y -= pdf.font.height
           end
-          pdf.text self.drawee[:name], :at => [5, 116]
-          pdf.text self.drawee[:address1], :at => [5, 106]
-          pdf.text self.drawee[:address2], :at => [5, 96]
+          pdf.text_box self.drawee[:name], :at => [5, 116]
+          pdf.text_box self.drawee[:address1], :at => [5, 106]
+          pdf.text_box self.drawee[:address2], :at => [5, 96]
           # end with barcode
           my_barcode = Barby::Code25Interleaved.new(@barcode)
           my_barcode.annotate_pdf(pdf, { :height => 30, :y => -20, :x => 0, :xdim => 0.8 })
