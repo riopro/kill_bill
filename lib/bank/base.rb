@@ -120,16 +120,20 @@ module Riopro
         # === End Stub methods (replaced for each bank) ===
 
         # Render class attributes to pdf file. Returns a pdf stream
-        def to_pdf
-          @pdf = Prawn::Document.new(:background => File.dirname(__FILE__) + "/../images/#{self.bank.downcase}.png")
+        # You could pass a parameter defining an alternative background image type
+        # Possible types are: :png (default) or :jpg
+        def to_pdf(background_type=:png)
+          @pdf = Prawn::Document.new(:background => File.dirname(__FILE__) + "/../images/#{self.bank.downcase}.#{background_type}")
           self.pdf_parameters(@pdf)
           @pdf.render
         end
 
         # Render class attributes to pdf file. Saves pdf to the destination
         # setted in the filename parameter
-        def to_pdf_file(filename = nil)
-          Prawn::Document.generate(filename, :background => File.dirname(__FILE__) + "/../images/#{self.bank.downcase}.png") do |pdf|
+        # You could pass a parameter defining an alternative background image type
+        # Possible types are: :png (default) or :jpg
+        def to_pdf_file(filename = nil, background_type=:png)
+          Prawn::Document.generate(filename, :background => File.dirname(__FILE__) + "/../images/#{self.bank.downcase}.#{background_type}") do |pdf|
             self.pdf_parameters(pdf)
           end
         end
