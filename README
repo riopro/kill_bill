@@ -26,13 +26,53 @@ Para testes necessita das Gems instaladas:
 
 rspec = (1.3.0)
 
-
 Nota: O RMagick é uma necessidade do prawn-fast-png e ajuda a aumentar a
 velocidade de renderização de arquivos PNG que contém transparência. A leitura
 do AlphaChannel do PNG em Ruby puro estava muito lenta.
 
+Usando
+======
 
-Example
+Vamos supor que eu tenha um _controller_ Billing e que a _action_ show desse
+_controller_ exibe o boleto no padrão Itau. Para fins de exemplo, consideramos
+que o modelo Billing possui um método de instância to_bill que possui todos
+os campos necessários ao preenchimento do boleto no formato do Itaú.
+
+A action ficaria então assim:
+
+def show
+ @billing = Billing.find params[:id]
+ @boleto = Riopro::KillBill::Bank::Itau.new(@billing.to_bill)
+ send_data @boleto.to_pdf, 
+  :filename => "boleto_itau.pdf", 
+  :type => "application/pdf"
+end
+
+
+No meu modelo Billing, o método to_bill seria assim
+
+  def to_bill
+    {
+      :bank => self.bank,
+      :our_number => self.our_number,
+      :agency => self.agency,
+      :account => self.account,
+      :value => self.value,
+      :due_on => self.due_on,
+      :transferor => self.transferor,
+      :quantity => 1,
+      :document_number => self.invoice.id,
+      :processed_at => self.created_at.to_date,
+      :drawee => { 
+        :name => self.user.name,
+        :address1 => self.address,
+        :address2 => self.address_complement
+      },
+      :instructions => self.instructions
+    }
+  end
+
+Exemplo
 =======
 
 Os exemplos estão na pasta examples. Para usá-los, você precisa estar com as
@@ -43,7 +83,7 @@ $ ruby examples/boleto_itau_examples.rb
 Vai criar no diretório raiz um arquivo boleto_itau.pdf
 
 
-Incorporando o seu banco ao KillBill
+Adicionando novos bancos ao KillBill
 =================================================
 
 Para entender melhor como incorporar o seu banco ao KillBill, comece olhando o 

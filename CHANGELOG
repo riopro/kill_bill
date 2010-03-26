@@ -3,7 +3,11 @@
 * 0.4.0
 
 - Atualizando para usar a versão 0.8.4 do Prawn
-- Alterando geração de boletos
+- Redimensionando imagens de fundo dos boletos por conta
+do reposicionamento das imagens de fundo no Prawn
+- Agora os métodos to_pdf e to_pdf_file aceitam um
+parâmetro background_type que pode ser :png ou :jpg.
+Por padrão, a imagem de fundo usada é a de extensão png.
 
 * 0.3.0
 
